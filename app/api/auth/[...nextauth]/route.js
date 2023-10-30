@@ -20,7 +20,7 @@ const authOptions = {
           placeholder: "Password",
         },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         const user = { id: "1", name: "archita", password: "123" };
         if (
           credentials?.username === user.name &&
