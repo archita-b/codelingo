@@ -1,12 +1,10 @@
-"use client";
+import Link from "next/link";
 
-import GoogleButton from "react-google-button";
-import { signIn } from "next-auth/react";
-
-export default function LoginPage() {
+export default function Home() {
   return (
-    <main className="flex justify-center items-center h-screen">
-      <GoogleButton onClick={() => signIn("google")} />
+    <main>
+      <h1>Welcome to CodeLingo</h1>
+      <Link href="/login">Get started</Link>
     </main>
   );
 }
