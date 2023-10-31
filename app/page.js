@@ -1,10 +1,8 @@
-// import Link from "next/link";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 
-export default function Home() {
-  return (
-    <main>
-      <h1>Home page</h1>
-      {/* <Link href="/login">Get started</Link> */}
-    </main>
-  );
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  return <>{session ? <h1>You are in</h1> : <h1>sign in to enter</h1>}</>;
 }
