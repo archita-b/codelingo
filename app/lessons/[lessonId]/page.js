@@ -1,21 +1,91 @@
+"use client";
+
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import MCQ from "@/app/components/MCQ";
+import { getQuestionsForLesson } from "@/lib/getQuestions";
+import { useEffect, useState } from "react";
 
-export default async function LessonPage({ params }) {
-  async function getQuestionsForLesson(lessonId) {
-    const res = await fetch(`http://localhost:3000/api/lessons/${lessonId}`);
-    const questionData = await res.json();
-    return questionData;
+export default function LessonPage({ params: { lessonId } }) {
+  const [questionsForLesson, setQuestionsForLesson] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userAnswer, setUserAnswer] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [showContinueBtn, setShowContinueBtn] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [numOfCorrectAns, setNumOfCorrectAns] = useState(0);
+
+  useEffect(() => {
+    getQuestionsForLesson(lessonId).then((data) => {
+      if (data)
+        setQuestionsForLesson(
+          data.map((question) => ({ ...question, answered: false }))
+        );
+    });
+  }, []);
+
+  const questions = questionsForLesson.filter(
+    (question) => question.answered === false
+  );
+
+  const currentQuestion = questions[currentIndex];
+
+  if (currentQuestion === undefined && questions.length !== 0)
+    setCurrentIndex(0);
+
+  const percentageOfProgress =
+    (numOfCorrectAns / questionsForLesson.length) * 100;
+
+  function checkAnswer() {
+    if (currentIndex >= questions.length) {
+      selectedLesson = null;
+      return;
+    }
+    if (Number(userAnswer) + 1 == currentQuestion.correctanswer) {
+      setFeedback("Correct");
+    } else {
+      setFeedback("Wrong");
+    }
+    setShowContinueBtn(true);
+    setShowFeedback(true);
   }
 
-  const questions = await getQuestionsForLesson(params.lessonId);
+  function handleContinue() {
+    if (Number(userAnswer) + 1 === currentQuestion.correctanswer) {
+      setQuestionsForLesson((questionsForLesson) =>
+        questionsForLesson.map((question) => {
+          if (question === currentQuestion)
+            return { ...question, answered: true };
+          return { ...question };
+        })
+      );
+      setCurrentIndex(currentIndex);
+      setNumOfCorrectAns(numOfCorrectAns + 1);
+    } else setCurrentIndex(currentIndex + 1);
+    setUserAnswer("");
+    setShowContinueBtn(false);
+    setShowFeedback(false);
+  }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between py-20">
-      <Header />
-      <MCQ />
-      <Footer />
+      <Header percentageOfProgress={percentageOfProgress} />
+      <MCQ
+        currentQuestion={currentQuestion}
+        userAnswer={userAnswer}
+        setUserAnswer={setUserAnswer}
+      />
+      <Footer
+        lessonId={lessonId}
+        questions={questions}
+        currentIndex={currentIndex}
+        userAnswer={userAnswer}
+        feedback={feedback}
+        showContinueBtn={showContinueBtn}
+        showFeedback={showFeedback}
+        checkAnswer={checkAnswer}
+        handleContinue={handleContinue}
+      />
     </div>
   );
 }

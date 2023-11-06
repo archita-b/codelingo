@@ -1,6 +1,7 @@
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function LessonsPage() {
   const userData = [
@@ -41,12 +42,13 @@ export default async function LessonsPage() {
             <div className="w-96 h-96 p-4 grid grid-cols-2 gap-6">
               {lessons.map((lesson) => {
                 return (
-                  <button
+                  <Link
                     key={lesson.id}
+                    href={`/lessons/${lesson.id}`}
                     className={`relative rounded-xl border-x-2 border-t-2 border-b-4 border-slate-300 text-slate-500 font-semibold text-3xl hover:bg-slate-200`}
                   >
                     Lesson {lesson.id}
-                  </button>
+                  </Link>
                 );
               })}
             </div>
