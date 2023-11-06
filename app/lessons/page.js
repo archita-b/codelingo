@@ -1,7 +1,6 @@
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-import getLessons from "@/lib/getLessons";
 
 export default async function LessonsPage() {
   const userData = [
@@ -9,7 +8,12 @@ export default async function LessonsPage() {
     "santosh@geekskool.com",
   ];
 
-  const lessons = (await getLessons()).rows;
+  async function getLessons() {
+    const res = await fetch("http://localhost:3000/api/lessons");
+    const lessons = (await res.json()).rows;
+    return lessons;
+  }
+  const lessons = await getLessons();
 
   const session = await getServerSession(authOptions);
 
@@ -20,11 +24,15 @@ export default async function LessonsPage() {
   return (
     <>
       {!authorizedUser ? (
-        <div>You are not allowed </div>
+        <div className="flex justify-center p-6">
+          <h1 className="text-2xl font-semibold">You are not allowed</h1>
+        </div>
       ) : (
         <>
-          <div className="flex justify-center">
-            <h1 className="text-2xl">Welcome {session.user.name}</h1>{" "}
+          <div className="flex justify-center p-6">
+            <h1 className="text-2xl font-semibold">
+              Welcome {session.user.name}
+            </h1>
           </div>
           <div className="flex flex-col justify-center items-center h-screen">
             <h1 className="mb-10 font-bold text-3xl text-slate-600">
