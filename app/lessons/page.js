@@ -19,7 +19,8 @@ export default async function LessonsPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect("/api/auth/signin?callbackUrl=/lessons");
+    // redirect("/api/auth/signin?callbackUrl=/lessons");
+    redirect("/home");
   }
   const authorizedUser = userData.includes(session.user.email);
   return (
@@ -30,11 +31,6 @@ export default async function LessonsPage() {
         </div>
       ) : (
         <>
-          <div className="flex justify-center p-6">
-            <h1 className="text-2xl font-semibold">
-              Welcome {session.user.name}
-            </h1>
-          </div>
           <div className="flex flex-col justify-center items-center h-screen">
             <h1 className="mb-10 font-bold text-3xl text-slate-600">
               Choose a Lesson
