@@ -15,16 +15,16 @@ export default async function HomePage() {
           </div>
         </div>
       ) : (
-        <div className="space-y-6">
-          <h1 className="text-xl">Sign in to continue with lessons</h1>
-          <div className="flex justify-center">
+        <div className="flex-col justify-strech h-96">
+          <div className="flex justify-end">
             <Link
               href="/api/auth/signin"
-              className="bg-green-500 text-white rounded p-2"
+              className="bg-green-500 text-white font-medium rounded p-3 hover:bg-green-600"
             >
-              SignIn
+              Sign In
             </Link>
           </div>
+          <h1 className="text-2xl">Sign in to continue with lessons</h1>
         </div>
       )}
     </>

@@ -14,9 +14,9 @@ export default function HomeLayout({ children }) {
       <main>{children}</main>
       <Link
         href="/lessons"
-        className="bg-blue-200 text-lg text-slate-600 p-4 rounded-md shadow-md hover:bg-blue-300"
+        className="bg-blue-500 text-lg font-medium text-white p-4 rounded-md shadow-md hover:bg-blue-600"
       >
-        Lessons
+        Get Started with Lessons
       </Link>
     </div>
   );
