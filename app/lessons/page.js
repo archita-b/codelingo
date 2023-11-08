@@ -20,7 +20,7 @@ export default async function LessonsPage() {
 
   if (!session) {
     // redirect("/api/auth/signin?callbackUrl=/lessons");
-    redirect("/home");
+    redirect("/");
   }
   const authorizedUser = userData.includes(session.user.email);
   return (
