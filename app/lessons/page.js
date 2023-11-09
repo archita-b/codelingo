@@ -10,8 +10,7 @@ export default async function LessonsPage() {
   ];
 
   async function getLessons() {
-    // const res = await fetch("http://localhost:3000/api/lessons");
-    const res = await fetch("http://127.0.0.1:3000/api/lessons");
+    const res = await fetch("http://localhost:3000/api/lessons");
     const lessons = (await res.json()).rows;
     return lessons;
   }
