@@ -10,7 +10,12 @@ export default async function LessonsPage() {
   ];
 
   async function getLessons() {
-    const res = await fetch("http://localhost:3000/api/lessons");
+    const url =
+      process.env.NEXT_PUBLIC_ENV === "development"
+        ? "http://localhost:3000/api"
+        : "codelingo-tawny.vercel.app/api";
+
+    const res = await fetch(url + "/lessons");
     const lessons = (await res.json()).rows;
     return lessons;
   }
