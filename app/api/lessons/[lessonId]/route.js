@@ -7,5 +7,7 @@ export async function GET(req, { params }) {
     [params.lessonId]
   );
   const questionsData = result.rows;
+  if (!questionsData)
+    return NextResponse.json({ error: "Failed to fetch questions" });
   return NextResponse.json(questionsData);
 }

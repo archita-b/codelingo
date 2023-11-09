@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import MCQ from "@/app/components/MCQ";
-import { getQuestionsForLesson } from "@/lib/getQuestions";
-import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function LessonPage({ params: { lessonId } }) {
   const [questionsForLesson, setQuestionsForLesson] = useState([]);
@@ -14,6 +15,19 @@ export default function LessonPage({ params: { lessonId } }) {
   const [showContinueBtn, setShowContinueBtn] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [numOfCorrectAns, setNumOfCorrectAns] = useState(0);
+
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect(`/api/auth/signin?callbackUrl=/lessons/${lessonId}`);
+    },
+  });
+
+  async function getQuestionsForLesson(lessonId) {
+    const res = await fetch(`http://localhost:3000/api/lessons/${lessonId}`);
+    const data = res.json();
+    return data;
+  }
 
   useEffect(() => {
     getQuestionsForLesson(lessonId).then((data) => {
@@ -68,24 +82,28 @@ export default function LessonPage({ params: { lessonId } }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between py-20">
-      <Header percentageOfProgress={percentageOfProgress} />
-      <MCQ
-        currentQuestion={currentQuestion}
-        userAnswer={userAnswer}
-        setUserAnswer={setUserAnswer}
-      />
-      <Footer
-        lessonId={lessonId}
-        questions={questions}
-        currentIndex={currentIndex}
-        userAnswer={userAnswer}
-        feedback={feedback}
-        showContinueBtn={showContinueBtn}
-        showFeedback={showFeedback}
-        checkAnswer={checkAnswer}
-        handleContinue={handleContinue}
-      />
+    <div>
+      {session && (
+        <div className="flex min-h-screen flex-col items-center justify-between py-20">
+          <Header percentageOfProgress={percentageOfProgress} />
+          <MCQ
+            currentQuestion={currentQuestion}
+            userAnswer={userAnswer}
+            setUserAnswer={setUserAnswer}
+          />
+          <Footer
+            lessonId={lessonId}
+            questions={questions}
+            currentIndex={currentIndex}
+            userAnswer={userAnswer}
+            feedback={feedback}
+            showContinueBtn={showContinueBtn}
+            showFeedback={showFeedback}
+            checkAnswer={checkAnswer}
+            handleContinue={handleContinue}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import Link from "next/link";
+// import AuthProvider from "../auth/provider";
 
 export default function lessonsLayout({ children }) {
   return (
     <div>
+      {/* <AuthProvider> */}
       <div className="flex justify-end p-2">
         <Link
           href="/api/auth/signout"
@@ -12,6 +14,7 @@ export default function lessonsLayout({ children }) {
         </Link>
       </div>
       <main>{children}</main>
+      {/* </AuthProvider> */}
     </div>
   );
 }

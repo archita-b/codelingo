@@ -18,10 +18,8 @@ export default async function LessonsPage() {
 
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    // redirect("/api/auth/signin?callbackUrl=/lessons");
-    redirect("/");
-  }
+  if (!session) redirect("/");
+
   const authorizedUser = userData.includes(session.user.email);
   return (
     <>
