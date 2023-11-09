@@ -25,7 +25,7 @@ export default function LessonPage({ params: { lessonId } }) {
 
   async function getQuestionsForLesson(lessonId) {
     // const res = await fetch(`http://localhost:3000/api/lessons/${lessonId}`);
-    const res = await fetch(`127.0.0.1/api/lessons/${lessonId}`);
+    const res = await fetch(`http://127.0.0.1:3000/api/lessons/${lessonId}`);
     const data = res.json();
     return data;
   }
