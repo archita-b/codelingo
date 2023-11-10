@@ -29,7 +29,7 @@ export default function LessonPage({ params: { lessonId } }) {
         ? "http://localhost:3000/api"
         : "codelingo-tawny.vercel.app/api";
 
-    const res = await fetch(`url/lessons/${lessonId}`);
+    const res = await fetch(`${url}/lessons/${lessonId}`);
     const data = res.json();
     return data;
   }

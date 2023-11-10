@@ -15,7 +15,7 @@ export default async function LessonsPage() {
         ? "http://localhost:3000/api"
         : "codelingo-tawny.vercel.app/api";
 
-    const res = await fetch(url + "/lessons");
+    const res = await fetch(`${url}/lessons`);
     const lessons = (await res.json()).rows;
     return lessons;
   }
