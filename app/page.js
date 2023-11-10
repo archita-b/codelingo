@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import { authOptions } from "./api/auth/authOptions";
 
 export default async function App() {
   const session = await getServerSession(authOptions);
