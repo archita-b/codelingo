@@ -13,7 +13,7 @@ export default async function LessonsPage() {
     const url =
       process.env.NEXT_PUBLIC_ENV === "development"
         ? "http://localhost:3000/api"
-        : "codelingo-tawny.vercel.app/api";
+        : "codelingo-pi.vercel.app/api";
 
     const res = await fetch(`${url}/lessons`);
     const lessons = (await res.json()).rows;

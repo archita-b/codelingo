@@ -30,8 +30,11 @@ export default function LessonPage({ params: { lessonId } }) {
         : "codelingo-pi.vercel.app/api";
 
     const res = await fetch(`${url}/lessons/${lessonId}`);
-    const data = await res.json();
-    return data;
+
+    if (!res.ok)
+      throw new Error("Failed to get questions for lesson", lessonId);
+
+    return res.json();
   }
 
   useEffect(() => {
@@ -56,11 +59,10 @@ export default function LessonPage({ params: { lessonId } }) {
     (numOfCorrectAns / questionsForLesson.length) * 100;
 
   function checkAnswer() {
-    if (currentIndex >= questions.length) {
-      selectedLesson = null;
-      return;
-    }
-    if (Number(userAnswer) + 1 == currentQuestion.correctanswer) {
+    if (
+      userAnswer &&
+      Number(userAnswer) + 1 === currentQuestion.correctanswer
+    ) {
       setFeedback("Correct");
     } else {
       setFeedback("Wrong");
@@ -80,7 +82,10 @@ export default function LessonPage({ params: { lessonId } }) {
       );
       setCurrentIndex(currentIndex);
       setNumOfCorrectAns(numOfCorrectAns + 1);
-    } else setCurrentIndex(currentIndex + 1);
+    } else {
+      setCurrentIndex(currentIndex + 1);
+    }
+
     setUserAnswer("");
     setShowContinueBtn(false);
     setShowFeedback(false);
@@ -90,7 +95,10 @@ export default function LessonPage({ params: { lessonId } }) {
     <div>
       {session && (
         <div className="flex min-h-screen flex-col items-center justify-between py-20">
-          <Header percentageOfProgress={percentageOfProgress} />
+          <Header
+            percentageOfProgress={percentageOfProgress}
+            lessonId={lessonId}
+          />
           <MCQ
             currentQuestion={currentQuestion}
             userAnswer={userAnswer}
