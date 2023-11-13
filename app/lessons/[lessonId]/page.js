@@ -27,10 +27,10 @@ export default function LessonPage({ params: { lessonId } }) {
     const url =
       process.env.NEXT_PUBLIC_ENV === "development"
         ? "http://localhost:3000/api"
-        : "codelingo-tawny.vercel.app/api";
+        : "codelingo-pi.vercel.app/api";
 
     const res = await fetch(`${url}/lessons/${lessonId}`);
-    const data = res.json();
+    const data = await res.json();
     return data;
   }
 
