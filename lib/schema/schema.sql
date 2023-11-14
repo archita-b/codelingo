@@ -22,7 +22,7 @@ CREATE TABLE mcq_questions (
 
 -- create lesson_completion table
 CREATE TABLE lesson_completion (
-  user_email VARCHAR(256) NOT NULL UNIQUE,
+  user_email VARCHAR(256) NOT NULL,
   lesson_id INTEGER REFERENCES lessons(id),
   is_completed BOOLEAN,
   PRIMARY KEY (user_email,lesson_id)

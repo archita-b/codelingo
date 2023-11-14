@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { userLessonInfo } from "./requests";
 
 export default function Footer({
   lessonId,
@@ -11,7 +12,6 @@ export default function Footer({
   showContinueBtn,
   showFeedback,
   handleContinue,
-  userLessonInfo,
 }) {
   const { data: session } = useSession();
   const email = session.user.email;
