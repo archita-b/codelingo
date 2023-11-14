@@ -15,7 +15,7 @@ export default function Header({ percentageOfProgress, lessonId }) {
 
       {showQuitLink && (
         <div className="fixed top-0 left-0 w-full h-full backdrop-blur-sm">
-          <div className="w-1/3 h-1/4 p-5 bg-gray-300 absolute top-1/3 left-1/3 flex flex-col justify-between items-center rounded-lg shadow-lg">
+          <div className="w-1/3 h-1/4 p-5 bg-gray-300 border-2 border-gray-400 absolute top-1/3 left-1/3 flex flex-col justify-between items-center rounded-lg shadow-lg">
             <div className="text-3xl text-slate-700">Do you want to quit?</div>
             <div className="flex space-x-4">
               <Link
