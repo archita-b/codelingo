@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+
 export default function MCQ({ currentQuestion, userAnswer, setUserAnswer }) {
   const questionNotDefined = currentQuestion === undefined;
 

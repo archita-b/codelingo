@@ -24,7 +24,8 @@ CREATE TABLE mcq_questions (
 CREATE TABLE lesson_completion (
   user_email VARCHAR(256) NOT NULL UNIQUE,
   lesson_id INTEGER REFERENCES lessons(id),
-  is_completed BOOLEAN DEFAULT FALSE
+  is_completed BOOLEAN,
+  PRIMARY KEY (user_email,lesson_id)
 );
 
 

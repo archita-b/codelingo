@@ -1,6 +1,8 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Footer({
+  lessonId,
   questions,
   currentIndex,
   userAnswer,
@@ -9,7 +11,11 @@ export default function Footer({
   showContinueBtn,
   showFeedback,
   handleContinue,
+  userLessonInfo,
 }) {
+  const { data: session } = useSession();
+  const email = session.user.email;
+
   return (
     <div className="w-full">
       {currentIndex < questions.length ? (
@@ -54,6 +60,12 @@ export default function Footer({
       ) : (
         <div className="w-full border-solid border-t-[2px] border-gray-300 p-6 flex justify-center">
           <Link
+            onClick={() => {
+              userLessonInfo(email, lessonId, true).then((data) => {
+                // console.log("data=", data);
+                // res.json(data);
+              });
+            }}
             href="/lessons"
             className="w-30 h-30 p-2 bg-blue-500 text-white text-lg rounded-lg shadow-md font-semibold hover:bg-blue-600"
           >
