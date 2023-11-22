@@ -12,9 +12,10 @@ export async function getLessons() {
 export async function getQuestionsForLesson(lessonId) {
   const res = await fetch(`${url}/lessons/${lessonId}`);
 
-  if (!res.ok) throw new Error("Failed to get questions for lesson", lessonId);
+  if (!res.ok) return { data: null, status: res.status };
 
-  return res.json();
+  const data = await res.json();
+  return { data, status: 200 };
 }
 
 export async function createUserLessonInfo(email, lessonId, isCompleted) {

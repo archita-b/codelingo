@@ -11,6 +11,23 @@ datasource db {
 }
 
 model Lesson {
-  id          Int    @unique
+  id          Int        @unique @default(autoincrement())
   lesson_name String
+  Question    Question[]
+}
+
+model QuestionType {
+  type     String     @unique
+  Question Question[]
+}
+
+model Question {
+  id            Int          @id @default(autoincrement())
+  type          QuestionType @relation(fields: [question_type], references: [type])
+  question_type String
+  lesson_ref    Lesson       @relation(fields: [lesson_id], references: [id])
+  lesson_id     Int
+  question      String
+  answers       String[]
+  correct_ans   Int
 }

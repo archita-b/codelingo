@@ -24,32 +24,29 @@ export default function LessonPage({ params: { lessonId } }) {
     },
   });
 
-  // useEffect(() => {
-  //   getQuestionsForLesson(lessonId).then((data) => {
-  //     if (data)
-  //       setQuestionsForLesson(
-  //         data.map((question) => ({ ...question, answered: false }))
-  //       );
-  //   });
-  // }, []);
+  useEffect(() => {
+    getQuestionsForLesson(lessonId).then((questions) => {
+      if (questions)
+        setQuestionsForLesson(
+          questions.data.map((question) => ({ ...question, answered: false }))
+        );
+    });
+  }, []);
 
-  // const questions = questionsForLesson.filter(
-  //   (question) => question.answered === false
-  // );
+  const questions = questionsForLesson.filter(
+    (question) => question.answered === false
+  );
 
-  // const currentQuestion = questions[currentIndex];
+  const currentQuestion = questions[currentIndex];
 
-  // if (currentQuestion === undefined && questions.length !== 0)
-  //   setCurrentIndex(0);
+  if (currentQuestion === undefined && questions.length !== 0)
+    setCurrentIndex(0);
 
-  // const percentageOfProgress =
-  //   (numOfCorrectAns / questionsForLesson.length) * 100;
+  const percentageOfProgress =
+    (numOfCorrectAns / questionsForLesson.length) * 100;
 
   function checkAnswer() {
-    if (
-      userAnswer &&
-      Number(userAnswer) + 1 === currentQuestion.correctanswer
-    ) {
+    if (userAnswer && Number(userAnswer) + 1 === currentQuestion.correct_ans) {
       setFeedback("Correct");
     } else {
       setFeedback("Wrong");
@@ -59,7 +56,7 @@ export default function LessonPage({ params: { lessonId } }) {
   }
 
   function handleContinue() {
-    if (Number(userAnswer) + 1 === currentQuestion.correctanswer) {
+    if (Number(userAnswer) + 1 === currentQuestion.correct_ans) {
       setQuestionsForLesson((questionsForLesson) =>
         questionsForLesson.map((question) => {
           if (question === currentQuestion)
@@ -83,24 +80,24 @@ export default function LessonPage({ params: { lessonId } }) {
       {session && (
         <div className="flex min-h-screen flex-col items-center justify-between py-20">
           <Header
-            // percentageOfProgress={percentageOfProgress}
+            percentageOfProgress={percentageOfProgress}
             lessonId={lessonId}
           />
           <MCQ
-            // currentQuestion={currentQuestion}
-            // userAnswer={userAnswer}
+            currentQuestion={currentQuestion}
+            userAnswer={userAnswer}
             setUserAnswer={setUserAnswer}
           />
           <Footer
             lessonId={lessonId}
-            // questions={questions}
+            questions={questions}
             currentIndex={currentIndex}
             userAnswer={userAnswer}
             feedback={feedback}
             showContinueBtn={showContinueBtn}
             showFeedback={showFeedback}
-            // checkAnswer={checkAnswer}
-            // handleContinue={handleContinue}
+            checkAnswer={checkAnswer}
+            handleContinue={handleContinue}
           />
         </div>
       )}
