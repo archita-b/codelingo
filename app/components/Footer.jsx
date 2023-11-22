@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { userLessonInfo } from "./requests";
+import { createUserLessonInfo } from "./requests";
 
 export default function Footer({
   lessonId,
@@ -61,10 +61,7 @@ export default function Footer({
         <div className="w-full border-solid border-t-[2px] border-gray-300 p-6 flex justify-center">
           <Link
             onClick={() => {
-              userLessonInfo(email, lessonId, true).then((data) => {
-                // console.log("data=", data);
-                // res.json(data);
-              });
+              createUserLessonInfo(email, lessonId, true).then((data) => data);
             }}
             href="/lessons"
             className="w-30 h-30 p-2 bg-blue-500 text-white text-lg rounded-lg shadow-md font-semibold hover:bg-blue-600"

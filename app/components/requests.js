@@ -1,7 +1,13 @@
-const url =
-  process.env.NEXT_PUBLIC_ENV === "development"
-    ? "http://localhost:3000/api"
-    : "codelingo-pi.vercel.app/api";
+const url = "http://localhost:3000/api";
+
+export async function getLessons() {
+  const res = await fetch(`${url}/lessons`, { cache: "no-store" });
+
+  if (!res.ok) return { data: null, status: res.status };
+
+  const data = await res.json();
+  return { data, status: 200 };
+}
 
 export async function getQuestionsForLesson(lessonId) {
   const res = await fetch(`${url}/lessons/${lessonId}`);
@@ -11,7 +17,7 @@ export async function getQuestionsForLesson(lessonId) {
   return res.json();
 }
 
-export async function userLessonInfo(email, lessonId, isCompleted) {
+export async function createUserLessonInfo(email, lessonId, isCompleted) {
   const res = await fetch(`${url}/lessons/${lessonId}`, {
     method: "POST",
     headers: {
