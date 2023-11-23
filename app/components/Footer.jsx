@@ -60,9 +60,9 @@ export default function Footer({
       ) : (
         <div className="w-full border-solid border-t-[2px] border-gray-300 p-6 flex justify-center">
           <Link
-            onClick={() => {
-              createUserLessonInfo(email, lessonId, true).then((data) => data);
-            }}
+            // onClick={() => {
+            //   createUserLessonInfo(email, lessonId, true).then((data) => data);
+            // }}
             href="/lessons"
             className="w-30 h-30 p-2 bg-blue-500 text-white text-lg rounded-lg shadow-md font-semibold hover:bg-blue-600"
           >

@@ -15,7 +15,7 @@ export default function MCQ({ currentQuestion, userAnswer, setUserAnswer }) {
         {questionNotDefined ? "" : currentQuestion.question}
       </h1>
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col gap-4">
         {questionNotDefined
           ? "Finished !"
           : currentQuestion.answers.map((answer, index) => {
