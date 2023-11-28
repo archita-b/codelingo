@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
   });
 
   if (!questions)
-    return NextResponse.json({ error: "Question not found" }, { status: 404 });
+    return NextResponse.json({ error: "Questions not found" }, { status: 404 });
 
   return NextResponse.json(questions);
 }

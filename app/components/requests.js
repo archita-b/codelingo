@@ -28,8 +28,38 @@ export async function createUserLessonInfo(email, lessonId, isCompleted) {
   });
 
   if (!res.ok)
-    throw new Error("Failed to insert data in lesson_completion table");
+    return {
+      data: "Failed to insert data in lesson_completion table",
+      status: res.status,
+    };
 
   const data = await res.json();
   return { data, status: res.status };
+}
+
+export async function createQuestion(
+  question_type,
+  lesson_id,
+  question,
+  answers,
+  correct_ans
+) {
+  const res = await fetch(`${url}/admin`, {
+    method: "POST",
+    headers: {
+      "Content-type": "Application/json",
+    },
+    body: JSON.stringify({
+      question_type,
+      lesson_id,
+      question,
+      answers,
+      correct_ans,
+    }),
+  });
+
+  if (!res.ok) return { data: "Error creating question", status: res.status };
+
+  const data = await res.json();
+  return { data, status: 201 };
 }
