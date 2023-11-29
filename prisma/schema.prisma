@@ -27,7 +27,7 @@ model Question {
   question_type String
   lesson_ref    Lesson       @relation(fields: [lesson_id], references: [id])
   lesson_id     Int
-  question      String
+  question      String       @unique
   answers       String[]
   correct_ans   Int
 }

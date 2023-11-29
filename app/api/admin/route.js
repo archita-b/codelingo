@@ -4,7 +4,18 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   const body = await req.json();
 
-  const question = await prisma.question.create({
+  const question = await prisma.question.findUnique({
+    where: { question: body.question },
+  });
+
+  if (question) {
+    return NextResponse.json(
+      { error: "Queston already exists" },
+      { status: 400 }
+    );
+  }
+
+  const newQuestion = await prisma.question.create({
     data: {
       question_type: body.question_type,
       lesson_id: parseInt(body.lesson_id),
@@ -14,5 +25,5 @@ export async function POST(req) {
     },
   });
 
-  return NextResponse.json(question, { status: 201 });
+  return NextResponse.json(newQuestion, { status: 201 });
 }

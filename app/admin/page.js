@@ -20,8 +20,6 @@ export default function AdminPage() {
     });
   }, []);
 
-  // ["Answer 1", "Answer 2", "Answer 3", "Answer 4"]
-
   function addQuestion(e) {
     e.preventDefault();
     createQuestion(
@@ -41,11 +39,13 @@ export default function AdminPage() {
   }
 
   return (
-    <form onSubmit={addQuestion}>
-      <p>This is admin page</p>
-      <h1>Create a question:</h1>
-      <div className="flex flex-col">
-        <label>
+    <form
+      onSubmit={addQuestion}
+      className="flex flex-col justify-between items-center h-screen p-4 text-slate-700 text-2xl"
+    >
+      <h1 className="font-bold">Create a question:</h1>
+      <div className="flex flex-col justify-between">
+        <label className="flex gap-5">
           Select chapter
           <select
             value={lessonId}
@@ -63,7 +63,7 @@ export default function AdminPage() {
           </select>
         </label>
 
-        <label>
+        <label className="flex gap-5">
           select question type
           <select
             value={questionType}
@@ -72,11 +72,11 @@ export default function AdminPage() {
             }}
           >
             <option>none</option>
-            <option value="mcq">mcq</option>
+            <option>mcq</option>
           </select>
         </label>
 
-        <label>
+        <label className="flex gap-5">
           Enter question
           <input
             placeholder="Type a question"
@@ -85,21 +85,23 @@ export default function AdminPage() {
           />
         </label>
 
-        <label>
+        <label className="flex gap-5">
           Enter possible answers:
-          {answers.map((element, index) => {
-            return (
-              <input
-                key={index}
-                placeholder={`Type answer ${index + 1}`}
-                value={element}
-                onChange={(e) => setAnswerOptions(index, e.target.value)}
-              />
-            );
-          })}
+          <div className="flex flex-col">
+            {answers.map((element, index) => {
+              return (
+                <input
+                  key={index}
+                  placeholder={`Type answer ${index + 1}`}
+                  value={element}
+                  onChange={(e) => setAnswerOptions(index, e.target.value)}
+                />
+              );
+            })}
+          </div>
         </label>
 
-        <label>
+        <label className="flex gap-5">
           Correct answer
           <select
             value={correctAnswer}
@@ -107,19 +109,18 @@ export default function AdminPage() {
               setCorrectAnswer(e.target.value);
             }}
           >
+            <option>none</option>
             {Array.from({ length: 4 }, (value, index) => index + 1).map(
               (element) => {
-                return (
-                  <option key={element} value={element}>
-                    {element}
-                  </option>
-                );
+                return <option key={element}>{element}</option>;
               }
             )}
           </select>
         </label>
       </div>
-      <button>submit question</button>
+      <div className="flex justify-center bg-blue-600 text-white p-3 rounded-md cursor-pointer hover:bg-blue-700">
+        <button>Submit Question</button>
+      </div>
     </form>
   );
 }
