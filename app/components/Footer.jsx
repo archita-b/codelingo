@@ -14,7 +14,7 @@ export default function Footer({
   handleContinue,
 }) {
   const { data: session } = useSession();
-  const email = session.user.email;
+  const email = session?.user.email;
 
   return (
     <div className="w-full">

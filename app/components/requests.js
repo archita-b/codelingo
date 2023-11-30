@@ -18,24 +18,24 @@ export async function getQuestionsForLesson(lessonId) {
   return { data, status: 200 };
 }
 
-export async function createUserLessonInfo(email, lessonId, isCompleted) {
-  const res = await fetch(`${url}/lessons/${lessonId}`, {
-    method: "POST",
-    headers: {
-      "Content-type": "Application/json",
-    },
-    body: JSON.stringify({ email, lessonId, isCompleted }),
-  });
+// export async function createUserLessonInfo(email, lessonId, isCompleted) {
+//   const res = await fetch(`${url}/lessons/${lessonId}`, {
+//     method: "POST",
+//     headers: {
+//       "Content-type": "Application/json",
+//     },
+//     body: JSON.stringify({ email, lessonId, isCompleted }),
+//   });
 
-  if (!res.ok)
-    return {
-      data: "Failed to insert data in lesson_completion table",
-      status: res.status,
-    };
+//   if (!res.ok)
+//     return {
+//       data: "Failed to insert data in lesson_completion table",
+//       status: res.status,
+//     };
 
-  const data = await res.json();
-  return { data, status: res.status };
-}
+//   const data = await res.json();
+//   return { data, status: res.status };
+// }
 
 export async function createQuestion(
   question_type,
@@ -62,4 +62,25 @@ export async function createQuestion(
 
   const data = await res.json();
   return { data, status: 201 };
+}
+
+export async function updateQuestion(
+  lessonId,
+  question_id,
+  question,
+  answers,
+  correct_ans
+) {
+  const res = await fetch(`${url}/lessons/${lessonId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "Application/json",
+    },
+    body: JSON.stringify({ question_id, question, answers, correct_ans }),
+  });
+
+  if (!res.ok) return { data: "Error updating question", status: res.status };
+
+  const data = res.json();
+  return { data, status: 200 };
 }

@@ -7,8 +7,10 @@ import Header from "@/app/components/Header";
 import MCQ from "@/app/components/MCQ";
 import { redirect } from "next/navigation";
 import { getQuestionsForLesson } from "@/app/components/requests";
+import EditQuestion from "@/app/components/EditQuestion";
 
 export default function LessonPage({ params: { lessonId } }) {
+  const [editQuestion, setEditQuestion] = useState(false);
   const [questionsForLesson, setQuestionsForLesson] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
@@ -77,28 +79,38 @@ export default function LessonPage({ params: { lessonId } }) {
 
   return (
     <div>
-      {session && (
-        <div className="flex min-h-screen flex-col items-center justify-between py-20">
-          <Header
-            percentageOfProgress={percentageOfProgress}
-            lessonId={lessonId}
-          />
-          <MCQ
-            currentQuestion={currentQuestion}
-            userAnswer={userAnswer}
-            setUserAnswer={setUserAnswer}
-          />
-          <Footer
-            lessonId={lessonId}
-            questions={questions}
-            currentIndex={currentIndex}
-            userAnswer={userAnswer}
-            feedback={feedback}
-            showContinueBtn={showContinueBtn}
-            showFeedback={showFeedback}
-            checkAnswer={checkAnswer}
-            handleContinue={handleContinue}
-          />
+      {session && editQuestion ? (
+        <EditQuestion
+          currentQuestion={currentQuestion}
+          setEditQuestion={setEditQuestion}
+        />
+      ) : (
+        <div>
+          <button onClick={() => setEditQuestion(true)}>
+            Edit this question
+          </button>
+          <div className="flex min-h-screen flex-col items-center justify-between py-20">
+            <Header
+              percentageOfProgress={percentageOfProgress}
+              lessonId={lessonId}
+            />
+            <MCQ
+              currentQuestion={currentQuestion}
+              userAnswer={userAnswer}
+              setUserAnswer={setUserAnswer}
+            />
+            <Footer
+              lessonId={lessonId}
+              questions={questions}
+              currentIndex={currentIndex}
+              userAnswer={userAnswer}
+              feedback={feedback}
+              showContinueBtn={showContinueBtn}
+              showFeedback={showFeedback}
+              checkAnswer={checkAnswer}
+              handleContinue={handleContinue}
+            />
+          </div>
         </div>
       )}
     </div>

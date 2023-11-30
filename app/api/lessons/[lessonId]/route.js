@@ -12,6 +12,31 @@ export async function GET(req, { params }) {
   return NextResponse.json(questions);
 }
 
+export async function PATCH(req) {
+  const body = await req.json();
+
+  const question = await prisma.question.findUnique({
+    where: { id: body.question_id },
+  });
+
+  if (!question)
+    return NextResponse.json(
+      { error: "Question does not exist" },
+      { status: 404 }
+    );
+
+  const updatedQuestion = await prisma.question.update({
+    where: { id: body.question_id },
+    data: {
+      question: body.question,
+      answers: body.answers,
+      correct_ans: body.correct_ans,
+    },
+  });
+
+  return NextResponse.json(updatedQuestion);
+}
+
 // export async function POST(req, { params }) {
 //   const body = await req.json();
 
