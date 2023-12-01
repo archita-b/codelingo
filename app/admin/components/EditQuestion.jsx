@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateQuestion } from "./requests";
+import { updateQuestion } from "../../components/requests";
 
 export default function EditQuestion({ currentQuestion, setEditQuestion }) {
   const [updatedQuestion, setUpdatedQuestion] = useState(
@@ -25,7 +25,14 @@ export default function EditQuestion({ currentQuestion, setEditQuestion }) {
     correct_ans
   ) {
     updateQuestion(lesson_id, question_id, question, answers, correct_ans).then(
-      (data) => data
+      (data) => {
+        return {
+          ...currentQuestion,
+          question: data.data.question,
+          answers: data.data.answers,
+          correct_ans: data.data.correct_ans,
+        };
+      }
     );
   }
 

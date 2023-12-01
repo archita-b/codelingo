@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CreateQuestion from "./components/CreateQuestion";
-import UpdateQuestion from "./components/UpdateQuestion";
+// import UpdateQuestion from "./components/UpdateQuestion";
 import DeleteQuestion from "./components/DeleteQuestion";
 
 export default function AdminPage() {
@@ -13,9 +13,9 @@ export default function AdminPage() {
       {displayPage === "create" && (
         <CreateQuestion setDisplayPage={setDisplayPage} />
       )}
-      {displayPage === "update" && (
+      {/* {displayPage === "update" && (
         <UpdateQuestion setDisplayPage={setDisplayPage} />
-      )}
+      )} */}
       {displayPage === "delete" && (
         <DeleteQuestion setDisplayPage={setDisplayPage} />
       )}

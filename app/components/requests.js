@@ -81,6 +81,6 @@ export async function updateQuestion(
 
   if (!res.ok) return { data: "Error updating question", status: res.status };
 
-  const data = res.json();
+  const data = await res.json();
   return { data, status: 200 };
 }
