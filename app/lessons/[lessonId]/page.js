@@ -83,6 +83,9 @@ export default function LessonPage({ params: { lessonId } }) {
         <EditQuestion
           currentQuestion={currentQuestion}
           setEditQuestion={setEditQuestion}
+          questionsForLesson={questionsForLesson}
+          setQuestionsForLesson={setQuestionsForLesson}
+          currentIndex={currentIndex}
         />
       ) : (
         <div>

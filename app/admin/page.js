@@ -29,12 +29,12 @@ export default function AdminPage() {
             create
           </button>
 
-          <button
+          {/* <button
             value="update"
             onClick={(e) => setDisplayPage(e.target.value)}
           >
             update
-          </button>
+          </button> */}
 
           <button
             value="delete"
