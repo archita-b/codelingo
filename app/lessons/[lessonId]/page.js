@@ -89,8 +89,11 @@ export default function LessonPage({ params: { lessonId } }) {
         />
       ) : (
         <div>
-          <button onClick={() => setEditQuestion(true)}>
-            Edit this question
+          <button
+            onClick={() => setEditQuestion(true)}
+            className="absolute top-1/2 left-0 p-2 bg-green-600 text-white font-semibold hover:bg-green-700"
+          >
+            Edit
           </button>
           <div className="flex min-h-screen flex-col items-center justify-between py-20">
             <Header

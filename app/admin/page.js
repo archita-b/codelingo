@@ -9,7 +9,7 @@ export default function AdminPage() {
   const [displayPage, setDisplayPage] = useState(null);
 
   return (
-    <div>
+    <div className="p-6">
       {displayPage === "create" && (
         <CreateQuestion setDisplayPage={setDisplayPage} />
       )}
@@ -25,8 +25,9 @@ export default function AdminPage() {
           <button
             value="create"
             onClick={(e) => setDisplayPage(e.target.value)}
+            className="border p-2 rounded-md bg-green-600 text-white text-2xl hover:bg-green-700"
           >
-            create
+            Create a Question
           </button>
 
           {/* <button
@@ -36,12 +37,12 @@ export default function AdminPage() {
             update
           </button> */}
 
-          <button
+          {/* <button
             value="delete"
             onClick={(e) => setDisplayPage(e.target.value)}
           >
             delete
-          </button>
+          </button> */}
         </div>
       )}
     </div>

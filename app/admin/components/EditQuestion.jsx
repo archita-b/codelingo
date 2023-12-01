@@ -32,49 +32,54 @@ export default function EditQuestion({
   ) {
     updateQuestion(lesson_id, question_id, question, answers, correct_ans).then(
       (data) => {
-        return {
-          ...currentQuestion,
+        const questionToBeModified = questionsForLesson[currentIndex];
+        const modifiedQuestion = {
+          ...questionToBeModified,
           question: data.data.question,
           answers: data.data.answers,
           correct_ans: data.data.correct_ans,
         };
+        questionsForLesson[currentIndex] = { ...modifiedQuestion };
+        return questionsForLesson;
       }
     );
   }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-slate-100">
-      <div className="flex flex-col items-start space-y-4 bg-white p-8 rounded shadow-lg">
-        <label className="text-lg font-bold flex items-center">
+      <div className="bg-white p-8 rounded shadow-lg w-full max-w-md">
+        <label className="text-lg font-semibold block mb-2">
           Edit question
-          <textarea
-            className="border p-2 ml-2 font-normal font-mono"
-            value={updatedQuestion}
-            onChange={(e) => setUpdatedQuestion(e.target.value)}
-          />
         </label>
+        <textarea
+          className="border p-2 w-full font-normal font-mono"
+          value={updatedQuestion}
+          onChange={(e) => setUpdatedQuestion(e.target.value)}
+        />
 
         {updatedAnswers.map((updatedAnswer, index) => (
-          <label key={index} className="text-lg font-bold flex items-center">
-            Answer {index + 1}
+          <div key={index} className="mt-4">
+            <label className="text-lg font-semibold block mb-2">
+              Answer {index + 1}
+            </label>
             <textarea
-              className="border p-2 ml-2 font-normal font-mono"
+              className="border p-2 w-full font-normal font-mono"
               value={updatedAnswer}
               onChange={(e) => editAnswers(index, e.target.value)}
             />
-          </label>
+          </div>
         ))}
 
-        <label className="text-lg font-bold">
+        <label className="text-lg font-semibold block mt-4">
           Correct answer
-          <input
-            className="border p-2 ml-2 font-normal font-mono"
-            value={updatedCorrectAnswer}
-            onChange={(e) => setUpdatedCorrectAnswer(e.target.value)}
-          />
         </label>
+        <input
+          className="border p-2 w-full font-normal font-mono"
+          value={updatedCorrectAnswer}
+          onChange={(e) => setUpdatedCorrectAnswer(e.target.value)}
+        />
 
-        <div className="w-full flex justify-between">
+        <div className="w-full flex justify-between mt-4">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             type="submit"
@@ -92,7 +97,7 @@ export default function EditQuestion({
           </button>
 
           <button
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+            className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
             onClick={() => setEditQuestion(false)}
           >
             Back
