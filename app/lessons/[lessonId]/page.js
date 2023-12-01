@@ -7,7 +7,7 @@ import Header from "@/app/components/Header";
 import MCQ from "@/app/components/MCQ";
 import { redirect } from "next/navigation";
 import { getQuestionsForLesson } from "@/app/components/requests";
-import EditQuestion from "@/app/admin/components/EditQuestion";
+import EditQuestion from "@/app/components/EditQuestion";
 
 export default function LessonPage({ params: { lessonId } }) {
   const [editQuestion, setEditQuestion] = useState(false);

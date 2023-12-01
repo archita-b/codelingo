@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateQuestion } from "../../components/requests";
+import { updateQuestion } from "./requests";
 
 export default function EditQuestion({
   currentQuestion,
