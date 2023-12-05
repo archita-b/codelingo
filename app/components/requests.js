@@ -84,3 +84,17 @@ export async function updateQuestion(
   const data = await res.json();
   return { data, status: 200 };
 }
+
+export async function deleteQuestion(lessonId, question_id) {
+  const res = await fetch(`${url}/lessons/${lessonId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-type": "Application/json",
+    },
+    body: JSON.stringify({ question_id }),
+  });
+
+  if (!res.ok) return { data: "Error deleting question", status: res.status };
+
+  return { status: 204 };
+}

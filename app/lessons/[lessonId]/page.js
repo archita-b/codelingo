@@ -6,7 +6,10 @@ import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import MCQ from "@/app/components/MCQ";
 import { redirect } from "next/navigation";
-import { getQuestionsForLesson } from "@/app/components/requests";
+import {
+  deleteQuestion,
+  getQuestionsForLesson,
+} from "@/app/components/requests";
 import EditQuestion from "@/app/components/EditQuestion";
 
 export default function LessonPage({ params: { lessonId } }) {
@@ -25,6 +28,13 @@ export default function LessonPage({ params: { lessonId } }) {
       redirect(`/api/auth/signin?callbackUrl=/lessons/${lessonId}`);
     },
   });
+
+  const adminData = [
+    "archita.bhattacharyya91@gmail.com",
+    "santosh@geekskool.com",
+  ];
+
+  const isAdmin = adminData.includes(session?.user.email);
 
   useEffect(() => {
     getQuestionsForLesson(lessonId).then((questions) => {
@@ -89,12 +99,33 @@ export default function LessonPage({ params: { lessonId } }) {
         />
       ) : (
         <div>
-          <button
-            onClick={() => setEditQuestion(true)}
-            className="absolute top-1/2 left-0 p-2 bg-green-600 text-white font-semibold hover:bg-green-700"
-          >
-            Edit
-          </button>
+          {isAdmin && (
+            <div className="absolute top-1/2 left-0 flex flex-col">
+              <button
+                onClick={() => setEditQuestion(true)}
+                className="p-2 bg-green-600 text-white font-semibold hover:bg-green-700"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => {
+                  deleteQuestion(lessonId, currentQuestion.id).then((data) => {
+                    if (data.status === 204) {
+                      setQuestionsForLesson((questions) => {
+                        return questions.filter(
+                          (question) => question.id !== currentQuestion.id
+                        );
+                      });
+                    }
+                  });
+                }}
+                className="p-2 bg-red-600 text-white font-semibold hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          )}
+
           <div className="flex min-h-screen flex-col items-center justify-between py-20">
             <Header
               percentageOfProgress={percentageOfProgress}
