@@ -66,7 +66,7 @@ export default function Footer({
             href="/lessons"
             className="w-30 h-30 p-2 bg-blue-500 text-white text-lg rounded-lg shadow-md font-semibold hover:bg-blue-600"
           >
-            continue to next lesson &gt;&gt;
+            continue to next lesson
           </Link>
         </div>
       )}

@@ -29,5 +29,5 @@ model Question {
   lesson_id     Int
   question      String       @unique
   answers       String[]
-  correct_ans   Int
+  correct_ans   String
 }

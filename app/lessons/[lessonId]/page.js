@@ -11,6 +11,7 @@ import {
   getQuestionsForLesson,
 } from "@/app/components/requests";
 import EditQuestion from "@/app/components/EditQuestion";
+import OtherQuestionType from "@/app/components/OtherQuestionType";
 
 export default function LessonPage({ params: { lessonId } }) {
   const [editQuestion, setEditQuestion] = useState(false);
@@ -58,7 +59,10 @@ export default function LessonPage({ params: { lessonId } }) {
     (numOfCorrectAns / questionsForLesson.length) * 100;
 
   function checkAnswer() {
-    if (userAnswer && Number(userAnswer) + 1 === currentQuestion.correct_ans) {
+    if (
+      userAnswer &&
+      Number(userAnswer) + 1 === Number(currentQuestion.correct_ans)
+    ) {
       setFeedback("Correct");
     } else {
       setFeedback("Wrong");
@@ -68,7 +72,7 @@ export default function LessonPage({ params: { lessonId } }) {
   }
 
   function handleContinue() {
-    if (Number(userAnswer) + 1 === currentQuestion.correct_ans) {
+    if (Number(userAnswer) + 1 === Number(currentQuestion.correct_ans)) {
       setQuestionsForLesson((questionsForLesson) =>
         questionsForLesson.map((question) => {
           if (question === currentQuestion)
@@ -131,11 +135,17 @@ export default function LessonPage({ params: { lessonId } }) {
               percentageOfProgress={percentageOfProgress}
               lessonId={lessonId}
             />
-            <MCQ
-              currentQuestion={currentQuestion}
-              userAnswer={userAnswer}
-              setUserAnswer={setUserAnswer}
-            />
+            {currentQuestion?.question_type === "mcq" && (
+              <MCQ
+                currentQuestion={currentQuestion}
+                userAnswer={userAnswer}
+                setUserAnswer={setUserAnswer}
+                percentageOfProgress={percentageOfProgress}
+              />
+            )}
+            {currentQuestion?.question_type === "other" && (
+              <OtherQuestionType currentQuestion={currentQuestion} />
+            )}
             <Footer
               lessonId={lessonId}
               questions={questions}

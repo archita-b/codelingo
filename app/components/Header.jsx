@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function Header({ percentageOfProgress, lessonId }) {
   const [showQuitLink, setShowQuitLink] = useState(false);
+  // console.log("per in header=", percentageOfProgress);
 
   return (
     <div className="w-3/4 flex gap-3 justify-center items-center transition-all">

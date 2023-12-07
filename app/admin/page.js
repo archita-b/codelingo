@@ -79,6 +79,7 @@ export default function CreateQuestion() {
               >
                 <option>none</option>
                 <option>mcq</option>
+                <option>other</option>
               </select>
             </label>
 
