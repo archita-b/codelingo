@@ -1,12 +1,12 @@
 // const url = "http://localhost:3000/api";
-const url = "http://codelingo-pi.vercel.app";
+const url = "https://codelingo-pi.vercel.app";
 
 export async function getLessons() {
   const res = await fetch(`${url}/lessons`, { cache: "no-store" });
 
   if (!res.ok) return { data: null, status: res.status };
-
   const data = await res.json();
+  console.log(data);
   return { data, status: 200 };
 }
 
