@@ -143,9 +143,9 @@ export default function LessonPage({ params: { lessonId } }) {
                 percentageOfProgress={percentageOfProgress}
               />
             )}
-            {currentQuestion?.question_type === "other" && (
+            {/* {currentQuestion?.question_type === "other" && (
               <OtherQuestionType currentQuestion={currentQuestion} />
-            )}
+            )} */}
             <Footer
               lessonId={lessonId}
               questions={questions}
