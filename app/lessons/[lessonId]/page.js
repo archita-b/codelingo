@@ -11,6 +11,7 @@ import {
   getQuestionsForLesson,
 } from "@/app/components/requests";
 import EditQuestion from "@/app/components/EditQuestion";
+import AdminButtons from "@/app/components/AdminButtons";
 
 export default function LessonPage({ params: { lessonId } }) {
   const [editQuestion, setEditQuestion] = useState(false);
@@ -100,30 +101,13 @@ export default function LessonPage({ params: { lessonId } }) {
       ) : (
         <div>
           {isAdmin && (
-            <div className="absolute top-1/2 left-0 flex flex-col">
-              <button
-                onClick={() => setEditQuestion(true)}
-                className="p-2 bg-green-600 text-white font-semibold hover:bg-green-700"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => {
-                  deleteQuestion(lessonId, currentQuestion.id).then((data) => {
-                    if (data.status === 204) {
-                      setQuestionsForLesson((questions) => {
-                        return questions.filter(
-                          (question) => question.id !== currentQuestion.id
-                        );
-                      });
-                    }
-                  });
-                }}
-                className="p-2 bg-red-600 text-white font-semibold hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
+            <AdminButtons
+              setEditQuestion={setEditQuestion}
+              deleteQuestion={deleteQuestion}
+              lessonId={lessonId}
+              currentQuestion={currentQuestion}
+              setQuestionsForLesson={setQuestionsForLesson}
+            />
           )}
 
           <div className="flex min-h-screen flex-col items-center justify-between py-20">
