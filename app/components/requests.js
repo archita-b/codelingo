@@ -3,7 +3,6 @@ const url = "https://codelingo-pi.vercel.app/api";
 
 export async function getLessons() {
   const res = await fetch(`${url}/lessons`, { cache: "no-store" });
-
   if (!res.ok) return { data: null, status: res.status };
 
   const data = await res.json();

@@ -5,11 +5,11 @@ import { authOptions } from "../api/auth/authOptions";
 import { getLessons, getUserLessonInfo } from "../components/requests";
 
 export default async function LessonsPage() {
-  const lessons = (await getLessons()).data;
-
   const session = await getServerSession(authOptions);
 
   if (!session) redirect("/");
+
+  const lessons = (await getLessons()).data;
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -17,7 +17,7 @@ export default async function LessonsPage() {
         Choose a Lesson...
       </h1>
       <div className="w-96 h-96 p-4 grid grid-cols-2 gap-6">
-        {lessons.map((lesson) => {
+        {lessons?.map((lesson) => {
           return (
             <Link
               key={lesson.id}
