@@ -1,6 +1,7 @@
+import { deleteQuestion } from "./requests";
+
 export default function AdminButtons({
   setEditQuestion,
-  deleteQuestion,
   lessonId,
   currentQuestion,
   setQuestionsForLesson,

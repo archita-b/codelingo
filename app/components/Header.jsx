@@ -6,6 +6,7 @@ export default function Header({ percentageOfProgress, lessonId }) {
 
   return (
     <div className="w-3/4 flex gap-3 justify-center items-center transition-all">
+      {/* cross button */}
       <button
         onClick={() => setShowQuitLink(true)}
         className="text-gray-400 text-3xl hover:text-gray-500 transition-colors"
@@ -13,6 +14,7 @@ export default function Header({ percentageOfProgress, lessonId }) {
         {"\u00d7"}
       </button>
 
+      {/* pop-up box */}
       {showQuitLink && (
         <div className="fixed top-0 left-0 w-full h-full backdrop-blur-md">
           <div className="w-1/3 h-1/4 p-5 bg-gray-300 border-2 border-gray-400 absolute top-1/3 left-1/3 flex flex-col justify-between items-center rounded-lg shadow-lg">
@@ -36,6 +38,7 @@ export default function Header({ percentageOfProgress, lessonId }) {
         </div>
       )}
 
+      {/* progress bar */}
       <div className="w-3/5">
         <div className="h-3 bg-gray-300 rounded-full">
           <div

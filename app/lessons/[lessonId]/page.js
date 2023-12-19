@@ -2,16 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
-import MCQ from "@/app/components/MCQ";
 import { redirect } from "next/navigation";
-import {
-  deleteQuestion,
-  getQuestionsForLesson,
-} from "@/app/components/requests";
+import { getQuestionsForLesson } from "@/app/components/requests";
 import EditQuestion from "@/app/components/EditQuestion";
 import AdminButtons from "@/app/components/AdminButtons";
+import QuestionSection from "@/app/components/QuestionSection";
+import FinishedPage from "@/app/components/FinishedPage";
 
 export default function LessonPage({ params: { lessonId } }) {
   const [editQuestion, setEditQuestion] = useState(false);
@@ -90,7 +86,7 @@ export default function LessonPage({ params: { lessonId } }) {
 
   return (
     <div>
-      {session && editQuestion ? (
+      {editQuestion ? (
         <EditQuestion
           currentQuestion={currentQuestion}
           setEditQuestion={setEditQuestion}
@@ -103,34 +99,37 @@ export default function LessonPage({ params: { lessonId } }) {
           {isAdmin && (
             <AdminButtons
               setEditQuestion={setEditQuestion}
-              deleteQuestion={deleteQuestion}
               lessonId={lessonId}
               currentQuestion={currentQuestion}
               setQuestionsForLesson={setQuestionsForLesson}
             />
           )}
 
-          <div className="flex min-h-screen flex-col items-center justify-between py-20">
-            <Header
-              percentageOfProgress={percentageOfProgress}
-              lessonId={lessonId}
-            />
-            <MCQ
-              currentQuestion={currentQuestion}
-              userAnswer={userAnswer}
-              setUserAnswer={setUserAnswer}
-            />
-            <Footer
-              lessonId={lessonId}
-              questions={questions}
-              currentIndex={currentIndex}
-              userAnswer={userAnswer}
-              feedback={feedback}
-              showContinueBtn={showContinueBtn}
-              showFeedback={showFeedback}
-              checkAnswer={checkAnswer}
-              handleContinue={handleContinue}
-            />
+          <div
+            className={`flex min-h-screen flex-col items-center pt-20 ${
+              percentageOfProgress === 100
+                ? "justify-around"
+                : "justify-between"
+            }`}
+          >
+            {percentageOfProgress === 100 ? (
+              <FinishedPage />
+            ) : (
+              <QuestionSection
+                percentageOfProgress={percentageOfProgress}
+                lessonId={lessonId}
+                currentQuestion={currentQuestion}
+                userAnswer={userAnswer}
+                setUserAnswer={setUserAnswer}
+                questions={questions}
+                currentIndex={currentIndex}
+                feedback={feedback}
+                showContinueBtn={showContinueBtn}
+                showFeedback={showFeedback}
+                checkAnswer={checkAnswer}
+                handleContinue={handleContinue}
+              />
+            )}
           </div>
         </div>
       )}
