@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export default function Navbar() {
+export default function UserInfo() {
   const { data: session } = useSession();
 
-  return <nav>Signed in as {session?.user.name}</nav>;
+  return <p>Signed in as {session?.user.name}</p>;
 }

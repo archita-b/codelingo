@@ -15,26 +15,26 @@ export default function Footer({
         className={`p-10 flex justify-around ${
           feedback
             ? feedback === "Correct"
-              ? "bg-green-100"
-              : "bg-red-100"
-            : "border-solid border-t-[2px] border-gray-300 bg-white"
+              ? "bg-green-100 border-solid border-t-[2px] border-green-500"
+              : "bg-red-100 border-solid border-t-[2px] border-red-500"
+            : "border-solid border-t-[2px] border-neutral-500"
         }`}
       >
         {showFeedback ? (
           <div
             className={`h-10 w-32 text-2xl text-center font-semibold ${
-              feedback === "Correct" ? "text-green-500" : "text-red-500"
+              feedback === "Correct" ? "text-green-600" : "text-red-600"
             }`}
           >
             {feedback}
           </div>
         ) : (
           <button
-            className="h-10 w-32 border-solid border-[2px] border-gray-500 rounded-lg disabled:border-gray-300 disabled:text-gray-500"
+            className="h-10 w-32 border-solid border-[2px] border-neutral-500 rounded-lg text-xl disabled:border-neutral-400 disabled:text-neutral-400"
             onClick={checkAnswer}
             disabled={`${userAnswer}`}
           >
-            skip
+            Skip
           </button>
         )}
 
@@ -49,7 +49,7 @@ export default function Footer({
           </button>
         ) : (
           <button
-            className={`h-10 w-32 border-solid border-[2px] border-gray-500 rounded-lg disabled:border-gray-300 disabled:text-gray-500`}
+            className={`h-10 w-32 border-solid border-[2px] border-neutral-500 rounded-lg text-xl disabled:border-neutral-400 disabled:text-neutral-400`}
             onClick={checkAnswer}
             disabled={!`${userAnswer}`}
           >

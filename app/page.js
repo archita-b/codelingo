@@ -9,21 +9,24 @@ export default async function App() {
   const href = session ? "/lessons" : "/api/auth/signin?callbackUrl=/lessons";
 
   return (
-    <div>
+    <div className="flex flex-col justify-between h-screen">
       <div className="flex justify-end p-4">
         <Link
           href="/api/auth/signin"
-          className="bg-green-500 text-white font-medium rounded p-3 hover:bg-green-600"
+          className="border-[2px] border-green-600 text-green-600 text-xl font-semibold rounded p-3 hover:text-green-700 hover:border-green-700"
         >
           Sign In
         </Link>
       </div>
 
-      <div className="flex justify-evenly flex-col items-center h-screen">
-        <h1 className="text-6xl">Welcome to Codelingo...</h1>
+      <h1 className="text-6xl text-center text-neutral-600">
+        Welcome to Codelingo...
+      </h1>
+
+      <div className="flex justify-center pb-20">
         <Link
           href={href}
-          className="bg-blue-500 text-lg font-medium text-white p-4 rounded-md shadow-md hover:bg-blue-600"
+          className="bg-neutral-600 text-xl text-white font-bold p-4 rounded-md shadow-md hover:bg-neutral-700"
         >
           Get Started with lessons
         </Link>

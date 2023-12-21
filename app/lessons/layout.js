@@ -1,16 +1,16 @@
 import Link from "next/link";
-import Navbar from "../components/Navbar";
+import UserInfo from "../components/UserInfo";
 
 export default function lessonsLayout({ children }) {
   return (
-    <div>
-      <div className="flex justify-between bg-blue-600 text-white p-4">
-        <Navbar />
-        <Link href="/api/auth/signout" className="rounded hover:font-bold">
+    <>
+      <nav className="absolute w-full flex justify-between bg-neutral-500 text-white text-xl font-semibold p-4">
+        <UserInfo />
+        <Link href="/api/auth/signout" className="rounded hover:font-extrabold">
           Sign Out
         </Link>
-      </div>
+      </nav>
       <main>{children}</main>
-    </div>
+    </>
   );
 }

@@ -8,7 +8,7 @@ export default function FinishedPage() {
       </h1>
       <Link
         href="/lessons"
-        className="border-[2px] border-sky-500 rounded-lg text-sky-500 text-center hover:bg-sky-50 text-2xl font-semibold p-5"
+        className="border-[2px] border-sky-500 rounded-lg text-sky-500 text-center hover:bg-sky-100 text-2xl font-semibold p-5"
       >
         Continue to Next Lesson
       </Link>

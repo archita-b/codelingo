@@ -80,6 +80,7 @@ export default function LessonPage({ params: { lessonId } }) {
     }
 
     setUserAnswer("");
+    setFeedback(null);
     setShowContinueBtn(false);
     setShowFeedback(false);
   }
@@ -102,6 +103,7 @@ export default function LessonPage({ params: { lessonId } }) {
               lessonId={lessonId}
               currentQuestion={currentQuestion}
               setQuestionsForLesson={setQuestionsForLesson}
+              percentageOfProgress={percentageOfProgress}
             />
           )}
 
