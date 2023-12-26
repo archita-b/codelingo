@@ -14,9 +14,7 @@ export default function FinishedPage({ lessonId }) {
       <Link
         href="/lessons"
         onClick={() => {
-          createUserLessonInfo(userEmail, lessonId, true).then((res) =>
-            console.log("res=", res)
-          );
+          createUserLessonInfo(userEmail, lessonId, true).then((data) => data);
         }}
         className="border-[2px] border-sky-500 rounded-lg text-sky-500 text-center hover:bg-sky-100 text-2xl font-semibold p-5"
       >

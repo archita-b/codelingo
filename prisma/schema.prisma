@@ -39,3 +39,7 @@ model LessonCompletion {
 
   @@id(name: "userLesson", [user_email, lesson_id])
 }
+
+model AdminData {
+  email String @unique
+}

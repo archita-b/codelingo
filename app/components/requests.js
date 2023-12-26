@@ -2,7 +2,7 @@
 const url = "https://codelingo-pi.vercel.app/api";
 
 export async function getLessons() {
-  const res = await fetch(`${url}/lessons`, { cache: "no-store" });
+  const res = await fetch(`${url}/lessons`);
   if (!res.ok) return { data: null, status: res.status };
 
   const data = await res.json();
@@ -14,8 +14,8 @@ export async function getQuestionsForLesson(lessonId) {
 
   if (!res.ok) return { data: null, status: res.status };
 
-  const data = await res.json();
-  return { data, status: 200 };
+  const { questionsData, adminData } = await res.json();
+  return { questionsData: questionsData, adminData: adminData, status: 200 };
 }
 
 export async function createUserLessonInfo(userEmail, lessonId, isCompleted) {

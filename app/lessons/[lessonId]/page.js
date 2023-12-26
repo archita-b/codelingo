@@ -10,6 +10,7 @@ import QuestionSection from "@/app/components/QuestionSection";
 import FinishedPage from "@/app/components/FinishedPage";
 
 export default function LessonPage({ params: { lessonId } }) {
+  const [adminData, setAdminData] = useState([]);
   const [editQuestion, setEditQuestion] = useState(false);
   const [questionsForLesson, setQuestionsForLesson] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,21 +27,20 @@ export default function LessonPage({ params: { lessonId } }) {
     },
   });
 
-  const adminData = [
-    "archita.bhattacharyya91@gmail.com",
-    "santosh@geekskool.com",
-  ];
-
-  const isAdmin = adminData.includes(session?.user.email);
-
   useEffect(() => {
-    getQuestionsForLesson(lessonId).then((questions) => {
-      if (questions)
-        setQuestionsForLesson(
-          questions.data.map((question) => ({ ...question, answered: false }))
-        );
+    getQuestionsForLesson(lessonId).then((data) => {
+      setQuestionsForLesson(
+        data.questionsData.map((question) => ({
+          ...question,
+          answered: false,
+        }))
+      );
+      const adminArray = data.adminData.map((element) => element.email);
+      setAdminData(adminArray);
     });
   }, []);
+
+  const isAdmin = adminData.includes(session?.user.email);
 
   const questions = questionsForLesson.filter(
     (question) => question.answered === false

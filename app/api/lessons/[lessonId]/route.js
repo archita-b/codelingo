@@ -6,10 +6,12 @@ export async function GET(req, { params }) {
     where: { lesson_id: parseInt(params.lessonId) },
   });
 
+  const adminData = await prisma.adminData.findMany();
+
   if (!questions)
     return NextResponse.json({ error: "Questions not found" }, { status: 404 });
 
-  return NextResponse.json(questions);
+  return NextResponse.json({ questionsData: questions, adminData: adminData });
 }
 
 export async function PATCH(req) {
