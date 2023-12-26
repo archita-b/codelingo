@@ -9,9 +9,10 @@ datasource db {
 }
 
 model Lesson {
-  id          Int        @unique @default(autoincrement())
-  lesson_name String
-  Question    Question[]
+  id               Int                @unique @default(autoincrement())
+  lesson_name      String
+  Question         Question[]
+  LessonCompletion LessonCompletion[]
 }
 
 model QuestionType {
@@ -28,4 +29,13 @@ model Question {
   question      String       @unique
   answers       String[]
   correct_ans   Int
+}
+
+model LessonCompletion {
+  user_email   String
+  lesson_ref   Lesson  @relation(fields: [lesson_id], references: [id])
+  lesson_id    Int
+  is_completed Boolean
+
+  @@id(name: "userLesson", [user_email, lesson_id])
 }

@@ -115,7 +115,9 @@ export default function LessonPage({ params: { lessonId } }) {
             }`}
           >
             {percentageOfProgress === 100 ? (
-              <FinishedPage />
+              <FinishedPage lessonId={lessonId} />
+            ) : currentQuestion === undefined ? (
+              <p className="text-xl font-medium">Loading...</p>
             ) : (
               <QuestionSection
                 percentageOfProgress={percentageOfProgress}

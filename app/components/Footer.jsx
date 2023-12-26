@@ -15,8 +15,8 @@ export default function Footer({
         className={`p-10 flex justify-around ${
           feedback
             ? feedback === "Correct"
-              ? "bg-green-100 border-solid border-t-[2px] border-green-500"
-              : "bg-red-100 border-solid border-t-[2px] border-red-500"
+              ? "bg-green-100 border-solid border-t-[2px] border-green-400"
+              : "bg-red-100 border-solid border-t-[2px] border-red-400"
             : "border-solid border-t-[2px] border-neutral-500"
         }`}
       >
@@ -30,7 +30,7 @@ export default function Footer({
           </div>
         ) : (
           <button
-            className="h-10 w-32 border-solid border-[2px] border-neutral-500 rounded-lg text-xl disabled:border-neutral-400 disabled:text-neutral-400"
+            className="h-10 w-32 border-solid border-[2px] border-neutral-500 rounded-lg text-xl disabled:border-neutral-400 disabled:text-neutral-400 disabled:bg-neutral-200"
             onClick={checkAnswer}
             disabled={`${userAnswer}`}
           >
@@ -49,7 +49,7 @@ export default function Footer({
           </button>
         ) : (
           <button
-            className={`h-10 w-32 border-solid border-[2px] border-neutral-500 rounded-lg text-xl disabled:border-neutral-400 disabled:text-neutral-400`}
+            className={`h-10 w-32 border-solid border-[2px] border-neutral-500 rounded-lg text-xl disabled:border-neutral-400 disabled:text-neutral-400 disabled:bg-neutral-200`}
             onClick={checkAnswer}
             disabled={!`${userAnswer}`}
           >

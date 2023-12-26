@@ -4,5 +4,10 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   const lessons = await prisma.lesson.findMany();
 
-  return NextResponse.json(lessons, { status: 200 });
+  const lessonCompletion = await prisma.lessonCompletion.findMany();
+
+  return NextResponse.json(
+    { lessonsData: lessons, lessonCompletionData: lessonCompletion },
+    { status: 200 }
+  );
 }

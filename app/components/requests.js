@@ -1,5 +1,5 @@
-const url = "http://localhost:3000/api";
-// const url = "https://codelingo-pi.vercel.app/api";
+// const url = "http://localhost:3000/api";
+const url = "https://codelingo-pi.vercel.app/api";
 
 export async function getLessons() {
   const res = await fetch(`${url}/lessons`, { cache: "no-store" });
@@ -18,24 +18,24 @@ export async function getQuestionsForLesson(lessonId) {
   return { data, status: 200 };
 }
 
-// export async function createUserLessonInfo(email, lessonId, isCompleted) {
-//   const res = await fetch(`${url}/lessons/${lessonId}`, {
-//     method: "POST",
-//     headers: {
-//       "Content-type": "Application/json",
-//     },
-//     body: JSON.stringify({ email, lessonId, isCompleted }),
-//   });
+export async function createUserLessonInfo(userEmail, lessonId, isCompleted) {
+  const res = await fetch(`${url}/lessons/${lessonId}`, {
+    method: "POST",
+    headers: {
+      "Content-type": "Application/json",
+    },
+    body: JSON.stringify({ userEmail, isCompleted }),
+  });
 
-//   if (!res.ok)
-//     return {
-//       data: "Failed to insert data in lesson_completion table",
-//       status: res.status,
-//     };
+  if (!res.ok)
+    return {
+      data: "Failed to insert data in lesson_completion table",
+      status: res.status,
+    };
 
-//   const data = await res.json();
-//   return { data, status: res.status };
-// }
+  const data = await res.json();
+  return { data, status: res.status };
+}
 
 export async function createQuestion(
   question_type,

@@ -56,3 +56,32 @@ export async function DELETE(req) {
 
   return NextResponse.json({});
 }
+
+export async function POST(req, { params }) {
+  const { userEmail, isCompleted } = await req.json();
+
+  const userLessonInfo = await prisma.lessonCompletion.findUnique({
+    where: {
+      userLesson: {
+        user_email: userEmail,
+        lesson_id: parseInt(params.lessonId),
+      },
+    },
+  });
+
+  if (userLessonInfo)
+    return NextResponse.json({
+      message: "User already finished this Lesson",
+      status: 422,
+    });
+
+  const newUserLessonInfo = await prisma.lessonCompletion.create({
+    data: {
+      user_email: userEmail,
+      lesson_id: parseInt(params.lessonId),
+      is_completed: isCompleted,
+    },
+  });
+
+  return NextResponse.json(userLessonInfo, { status: 201 });
+}
